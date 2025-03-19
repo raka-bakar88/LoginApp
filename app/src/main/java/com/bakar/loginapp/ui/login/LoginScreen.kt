@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,6 +40,12 @@ fun LoginScreen(
     val snackbarHostState = remember {
         SnackbarHostState()
     }
+
+    LaunchedEffect(loginResult) {
+        if (loginResult.isNotEmpty()) {
+            snackbarHostState.showSnackbar(loginResult)
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,6 +64,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.margin_size_small)))
 
         OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
             value = password,
             onValueChange = { password = it },
             label = { Text(text = stringResource(id = R.string.password_label)) },
@@ -72,8 +80,6 @@ fun LoginScreen(
             Text(text = stringResource(id = R.string.login_label))
         }
 
-        LaunchedEffect(loginResult) {
-            snackbarHostState.showSnackbar(loginResult)
-        }
+        SnackbarHost(hostState = snackbarHostState)
     }
 }

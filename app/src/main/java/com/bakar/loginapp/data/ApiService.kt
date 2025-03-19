@@ -1,10 +1,12 @@
 package com.bakar.loginapp.data
 
+import javax.inject.Inject
+
 interface ApiService {
     fun login(username: String, password: String): ApiResponse<Int?>
 }
 
-class ApiServiceImpl : ApiService {
+class ApiServiceImpl @Inject constructor() : ApiService {
     override fun login(username: String, password: String): ApiResponse<Int?> {
         return when (username) {
             "user" -> {
