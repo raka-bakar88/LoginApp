@@ -65,9 +65,6 @@ dependencies {
     // logging
     implementation(libs.logging)
 
-    // navigation
-    implementation(libs.navigation)
-
     // dependency injection
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.compiler)
@@ -78,8 +75,9 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.androidx.archcore.testing)
     testImplementation(libs.junit)
-    testImplementation(libs.coroutine.test)
-    testImplementation(libs.turbine)
+    testImplementation (libs.mockito)
+    testImplementation (libs.hilt.testing)
+    testImplementation (libs.coroutine.testing)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

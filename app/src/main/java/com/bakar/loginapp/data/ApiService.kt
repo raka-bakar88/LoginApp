@@ -1,5 +1,6 @@
 package com.bakar.loginapp.data
 
+import timber.log.Timber
 import javax.inject.Inject
 
 interface ApiService {
@@ -8,6 +9,7 @@ interface ApiService {
 
 class ApiServiceImpl @Inject constructor() : ApiService {
     override fun login(username: String, password: String): ApiResponse<Int?> {
+        Timber.d("login username :  $username password $password")
         return when (username) {
             "user" -> {
                 ApiResponse(
