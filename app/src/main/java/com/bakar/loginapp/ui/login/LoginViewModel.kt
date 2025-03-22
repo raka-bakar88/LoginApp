@@ -1,8 +1,8 @@
 package com.bakar.loginapp.ui.login
 
 import androidx.lifecycle.ViewModel
-import com.bakar.loginapp.data.ApiService
 import com.bakar.loginapp.data.Error
+import com.bakar.loginapp.data.LoginRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,7 +10,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val apiService: ApiService) : ViewModel() {
+class LoginViewModel @Inject constructor(private val loginRepository: LoginRepository) :
+    ViewModel() {
 
     private val _loginResult = MutableStateFlow("")
     val loginResult: StateFlow<String> = _loginResult
@@ -26,7 +27,7 @@ class LoginViewModel @Inject constructor(private val apiService: ApiService) : V
             return
         }
 
-        val response = apiService.login(email, password)
+        val response = loginRepository.login(email, password)
         when (response.error) {
             Error.WRONG_CREDENTIALS -> _loginResult.value = "Wrong Credentials"
             Error.INTERNAL_SERVER_ERROR -> _loginResult.value = "Server Error"
